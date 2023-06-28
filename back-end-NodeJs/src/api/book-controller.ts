@@ -21,9 +21,6 @@ type Book = {
     isbn:string,
     title:string
 }
-router.get("/",async (req,res)=>{
-    res.send("wada");
-})
 
 router.delete("/:isbn",async (req,res)=>{
     const result = await pool.query("DELETE FROM book WHERE isbn=?",
@@ -35,7 +32,12 @@ router.patch("/:isbn",async (req,res)=>{
     const book = req.body as Book;
     book.isbn = req.params.isbn;
 
+    if (!book.title.trim()){
+        res.sendStatus(400);
+        return;
+    }
+
     const result = await pool.query("UPDATE book SET title=? WHERE isbn=?",
-        [book.title,book.isbn]);
+        [book.title, book.isbn]);
     res.sendStatus(result.affectedRows ? 204 : 404);
-})
+});
