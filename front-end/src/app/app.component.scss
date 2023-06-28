@@ -1,0 +1,27 @@
+#container{
+  width: 1000px;
+  input{
+    width: 500px;
+  }
+}
+#outer{
+  width: 100vw;
+}
+
+#table-container{
+  width: 50%;
+}
+tr svg:last-child{
+  margin-left: 10px;
+  scale: 1.1;
+}
+.deleteSvgContainer{
+  :hover{
+    color: red;
+  }
+}
+.editSvgContainer{
+  :hover{
+    color: blue;
+  }
+}
