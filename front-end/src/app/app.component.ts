@@ -8,6 +8,12 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  showUpdateBtn=false;
+  showAddBtn=true;
+  isbnV='';
+  titleV='';
+
   title = 'front-end';
 
   bookList:Array<Book> =[];
@@ -46,6 +52,9 @@ export class AppComponent {
   }
 
   updateBook(isbn: HTMLInputElement, title: HTMLInputElement) {
+
+
+
     if (!isbn.value.trim()) {
       isbn.select();
       return;
@@ -61,6 +70,16 @@ export class AppComponent {
         isbn.value = '';
         title.value = '';
         isbn.focus();
+        this.showUpdateBtn=false;
+        this.showAddBtn=true;
       })
+  }
+
+  editDetails(book: Book) {
+    this.showUpdateBtn=true;
+    this.showAddBtn=false;
+    this.isbnV=book.isbn;
+    this.titleV=book.title;
+
   }
 }
