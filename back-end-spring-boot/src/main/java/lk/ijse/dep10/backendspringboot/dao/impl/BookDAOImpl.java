@@ -20,7 +20,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     private static final RowMapper<Book> BOOK_ROW_MAPPER = (rs, rowNum) -> Book.builder().isbn(rs.getString("isbn"))
-                       .tittle(rs.getString("tittle")).build();
+                       .title(rs.getString("title")).build();
 
 
 
@@ -33,9 +33,9 @@ public class BookDAOImpl implements BookDAO {
     public String save(Book book) {
         jdbcTemplate.update(con -> {
             PreparedStatement stm = con.prepareStatement
-                    ("INSERT INTO book (isbn, tittle) VALUES (?, ?)");
+                    ("INSERT INTO book (isbn, title) VALUES (?, ?)");
             stm.setString(1, book.getIsbn());
-            stm.setString(2, book.getTittle());
+            stm.setString(2, book.getTitle());
             return stm;
         });
         return "Okey";
