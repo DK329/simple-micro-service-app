@@ -32,16 +32,18 @@ function initPool() {
         });
     });
 }
-exports.router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("wada");
-}));
 exports.router.delete("/:isbn", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield pool.query("DELETE FROM book WHERE isbn=?", [req.params.isbn]);
     res.sendStatus(result.affectedRows ? 204 : 404);
 }));
 exports.router.patch("/:isbn", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const book = req.body;
     book.isbn = req.params.isbn;
+    if (!((_a = book.title) === null || _a === void 0 ? void 0 : _a.trim())) {
+        res.sendStatus(400);
+        return;
+    }
     const result = yield pool.query("UPDATE book SET title=? WHERE isbn=?", [book.title, book.isbn]);
     res.sendStatus(result.affectedRows ? 204 : 404);
 }));
